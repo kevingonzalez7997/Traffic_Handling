@@ -2,7 +2,7 @@
 
 ### Current Status
 
-As our collaboration with Nike continues, they recently e-mailed us regarding an increase in traffic to the application. They have requested to ensure reliability with a minimum of 14,000 user access at any given point.
+As our collaboration with Nike continues, they recently e-mailed us regarding increased traffic to the application. They have requested to ensure reliability with a minimum of 14,000 user access at any given point.
 
 ### Observations
 
@@ -12,7 +12,7 @@ Following the test, we observed that 56 (.4%) users were unable to access the ap
 
 ### Resolution
 
-Several optimization strategies could relieve networking traffic. The application could be scaled vertically. AWS offers numerous different types of EC2 instances catered to specific needs. After considering costs and Nike’s request for 14,000 minimum user access, a t3a.xlarge was selected. Although upgrading to t2.xlarge or t2.2xlarge might resolve the issue, t3a offers better features to our specific business model. T3a instances are able to handle traffic better through the use of next-generation burstable, with the ability to burst CPU usage at any time for as long as required. They have also included both EBS and networking enhancements with this tier, all while saving Nike 10% over t2 instances.
+Several optimization strategies could relieve networking traffic. The application could be scaled vertically. AWS offers numerous different types of EC2 instances catered to specific needs. After considering costs and Nike’s request for 14,000 minimum user access, a t3a.xlarge was selected. Although upgrading to t2.xlarge or t2.2xlarge might resolve the issue, t3a offers better features to our specific business model. T3a instances can handle traffic effectively through the use of next-generation burstable, with the ability to burst CPU usage at any time for as long as required. They have also included both EBS and networking enhancements with this tier, all while saving Nike 10% over t2 instances.
 
 ### Optimization
 
@@ -20,13 +20,15 @@ Several optimization strategies could relieve networking traffic. The applicatio
 
 - Horizontal scaling with the implementation of a load balancer could also improve traffic handling while lowering cost (1 t3a.xlarge .01504 per hr vs 2 t2.medium .0928 per hr). The disadvantage is that it would have less RAM, however, while monitoring RAM usage, 4GB would still be able to handle the workload as it never surpassed [25%](https://github.com/kevingonzalez7997/Traffic_Handling/blob/main/Results/After_Scaling/RAM_Usage.png)
 
+- Enhancements to the monitoring system were also implemented, now collecting usage data every minute instead of every five minutes. This approach will help minimize downtime by promptly addressing resource surges. Additionally, we could expand our alarm system to closely monitor critical resource levels, such as CPU usage reaching or exceeding 90/95%
+
 ### Results
 - [Before Optimization:](https://github.com/kevingonzalez7997/Traffic_Handling/blob/main/Results/Before_Scaling/CPU_Before_Scaling.png) CPU 1,2 both reached 99% usage
 - [After Vertical Scaling:](https://github.com/kevingonzalez7997/Traffic_Handling/tree/main/Results/After_Scaling) CPU 1,2,3,4 has decreased usage by 20-30% 
 - Considering the amount of traffic that wasn’t able to reach the application (.4% or 56/14,000), doubling resources should be more than enough to handle the surge in traffic at any given time
 
 ### Conclusion
-In conclusion, to enhance traffic handling for the application, Vertical scaling was used. AWS offers a large range of EC2 instances tailored to specific needs. After a careful evaluation of costs and Nike's minimum user access requirement of 14,000, the t3a.xlarge instance was selected as the optimal choice. 
+In conclusion, Vertical scaling was used to enhance traffic handling for the application. AWS offers a large range of EC2 instances tailored to specific needs. After carefully evaluating costs and Nike's minimum user access requirement of 14,000, the t3a.xlarge instance was selected as the optimal choice. 
 
 - **Case usage for t3a EC2: Micro-services, low-latency interactive applications, small and medium databases, virtual desktops, development environments, code repositories, and business-critical applications
 
